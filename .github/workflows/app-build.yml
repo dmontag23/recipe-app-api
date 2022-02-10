@@ -1,14 +1,13 @@
 name: Build, Lint, and Test App
 on: [push]
 jobs:
-  Test-Build:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
       - uses: actions/checkout@v2
 
       - name: Run lint checker
-      - run: docker-compose run app sh -c "flake8"
+        run: docker-compose run app sh -c "flake8"
 
       - name: Run Tests
-      - run: docker-compose run app sh -c "python manage.py test"
+        run: docker-compose run app sh -c "python manage.py test"
