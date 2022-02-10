@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .  # sets the context to the current directory
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+      # the "-c" flag means "run a shell command"
+      # "0.0.0.0" means django development server available on all ip addresses that run on the docker container
