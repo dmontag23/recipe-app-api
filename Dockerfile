@@ -5,7 +5,13 @@ MAINTAINER Dillon Montag
 ENV PYTHONUNBUFFERED 1
 
 COPY ./requirements.txt ./requirements.txt
+RUN apk add --update --no-cache postgresql-client  # needed to communicate with postgres db
+# setups an alias for dependencies yo setup postgres client so we can delete them below
+RUN apk add --update --no-cahce --virtual .tmp-build-deps \
+      gcc libc-dev linux-headers postgresql-dev
 RUN pip3 install -r ./requirements.txt    # the "-r" flag is used to install from a requirements file
+# delete tmp dependencies
+RUN apk del .tmp-build-deps
 
 RUN mkdir /app
 WORKDIR /app
